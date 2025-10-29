@@ -6,7 +6,6 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import os
 import sys
-from api.app import app, socketio
 
 # Add parent directory to Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19,13 +18,6 @@ from database.db_manager import DatabaseManager
 import workers.tasks
 from workers.task_registry import task_registry
 
-if __name__ == "__main__":
-    port = int(os.getenv('PORT', 5000))
-    socketio.run(app, 
-                host='0.0.0.0', 
-                port=port,
-                allow_unsafe_werkzeug=True)  # Add this for production
-    
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
